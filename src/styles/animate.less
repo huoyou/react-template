@@ -1,0 +1,44 @@
+/**
+* @module animate
+* @author: huoyou
+* @description: 通用动画封装
+*/
+.dz($time: 0.25s) {
+  -webkit-transition: all $time ease-in-out;
+  -moz-transition: all $time ease-in-out;
+  -o-transition: all $time ease-in-out;
+  -ms-transition: all $time ease-in-out;
+  transition: all $time ease-in-out;
+}
+// 旋转动画调用
+.xz($deg: 360) {
+  transform: rotate($deg + deg);
+  -webkit-transform: rotate($deg + deg);
+  -moz-transform: rotate($deg + deg);
+  -o-transform: rotate($deg + deg);
+  -ms-transform: rotate($deg + deg);
+}
+// 放大动画
+.fd($s1: 1.2) {
+  transform: scale($s1);
+  -webkit-transform: scale($s1);
+  -moz-transform: scale($s1);
+  -o-transform: scale($s1);
+  -ms-transform: scale($s1);
+}
+// 旋转放大动画
+.xzfd($deg: 360, $s1: 1.2) {
+  transform: rotate($deg + deg) scale($s1);
+  -webkit-transform: rotate($deg + deg) scale($s1);
+  -moz-transform: rotate($deg + deg) scale($s1);
+  -o-transform: rotate($deg + deg) scale($s1);
+  -ms-transform: rotate($deg + deg) scale($s1);
+}
+// 移动动画
+.yd($s1: 0, $s2: 0) {
+  transform: translate($s1, $s2);
+  -webkit-transform: translate($s1, $s2);
+  -moz-transform: translate($s1, $s2);
+  -o-transform: translate($s1, $s2);
+  -ms-transform: translate($s1, $s2);
+}
