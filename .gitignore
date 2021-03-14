@@ -12,6 +12,7 @@
 /build
 /dist
 /zip
+/analyze
 
 # misc
 .DS_Store

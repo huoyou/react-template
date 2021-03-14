@@ -24,8 +24,8 @@ const FileManagerPlugin = require('filemanager-webpack-plugin'); // 自动将输
 const CircularDependencyPlugin = require('circular-dependency-plugin'); // 循环引用检测
 // 界面化展示  webpack 的输出，包含依赖的大小、进度和其他细节
 const DashboardPlugin = require('webpack-dashboard/plugin');
-const Dashboard = require('webpack-dashboard');
-const dashboard = new Dashboard();
+// const Dashboard = require('webpack-dashboard');
+// const dashboard = new Dashboard();
 const TerserPlugin = require('terser-webpack-plugin'); // 压缩js
 const CompressionWebpackPlugin = require('compression-webpack-plugin'); // gzip
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer'); // 打包分析
@@ -35,7 +35,7 @@ const isBuildAnalyzer = process.env.BUILD_ANALYZER === 'true';
 const MODE = process.env.NODE_ENV;
 console.log(chalk.red('MODE', MODE));
 const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
-const { outputName, open, port, target } = require('./src/config/app.config.js').config;
+const { outputName, isGizp, isAnalyze, open, port, target } = require('./src/config/app.config.js').config;
 const pathResolve = (pathUrl) => path.join(__dirname, pathUrl);
 
 module.exports = {
@@ -73,8 +73,9 @@ module.exports = {
             cwd: process.cwd()
           }),
           // webpack-dev-server 强化插件
-          new DashboardPlugin()
+          new DashboardPlugin(),
           // new DashboardPlugin(dashboard.setData),
+          new webpack.HotModuleReplacementPlugin()
         ],
         []
       ),
@@ -117,7 +118,7 @@ module.exports = {
               mkdir: ['./zip'],
               delete: [
                 //首先需要删除zip目录下的dist.zip
-                // './zip/*.zip'
+                './zip/*.zip'
               ],
               // copy: [{ source: 'public/version.js', destination: outputName }],
               archive: [
@@ -130,12 +131,22 @@ module.exports = {
             }
           }),
           // 打压gzip缩包
-          new CompressionWebpackPlugin({
-            algorithm: 'gzip',
-            test: productionGzipExtensions,
-            threshold: 1024,
-            minRatio: 0.8
-          })
+          isGizp
+            ? new CompressionWebpackPlugin({
+                algorithm: 'gzip',
+                test: productionGzipExtensions,
+                threshold: 1024,
+                minRatio: 0.8
+              })
+            : function () {},
+          //  编译产物分析
+          isAnalyze
+            ? new BundleAnalyzerPlugin({
+                analyzerMode: 'static', // html 文件方式输出编译分析
+                openAnalyzer: false,
+                reportFilename: path.resolve(__dirname, `analyze/index.html`)
+              })
+            : function () {}
         ],
         []
       )
@@ -180,7 +191,7 @@ module.exports = {
         //   chunkFilename: 'static/js/[name].js'
         // },
         path: path.resolve(__dirname, outputName), // 修改输出文件目录
-        publicPath: '/'
+        publicPath: './'
       };
       /**
        * webpack split chunks
@@ -210,9 +221,9 @@ module.exports = {
   plugins: [
     ...whenDev(
       () => [
-        // {
-        //   plugin: fastRefreshCracoPlugin
-        // },
+        {
+          plugin: fastRefreshCracoPlugin
+        },
         {
           plugin: CracoVtkPlugin()
         }

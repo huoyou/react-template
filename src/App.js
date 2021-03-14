@@ -8,10 +8,10 @@ function App() {
     <Fragment>
       <HashRouter>
         <Switch>
-          <Route path="/login" component={Login} />
           <Route path="/home" component={Home} />
-          <Route exact path="/" component={Home} />
-          <Redirect to={'/home'} />
+          <Route path="/" component={Login} />
+          <Route exact path="/" component={Login} />
+          <Redirect to={'/login'} />
         </Switch>
       </HashRouter>
     </Fragment>

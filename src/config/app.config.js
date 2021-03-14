@@ -11,5 +11,7 @@ module.exports.config = {
   outputName: 'dist', // 打包输出名称
   open: false, // 是否自动打开浏览器
   port: 9000, // 端口号
-  target: 'http://localhost:7001' // 开发环境代理地址
+  target: 'http://localhost:7001', // 开发环境代理地址
+  isGizp: false,
+  isAnalyze: true
 };
