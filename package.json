@@ -15,6 +15,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "prepare": "husky install",
     "dev": "set PORT=3000 && craco start FAST_REFRESH=true",
     "build": "set GENERATE_SOURCEMAP=false && craco build",
     "analyze": "env NODE_ENV=production BUILD_ANALYZER=true yarn dev",
