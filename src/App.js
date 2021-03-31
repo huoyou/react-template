@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-use-before-define
 import React, { Fragment } from 'react';
 import Login from './pages/login';
 import Home from './pages/home';

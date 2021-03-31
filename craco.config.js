@@ -10,13 +10,14 @@ const {
   whenProd
   // whenTest,
 } = require('@craco/craco');
+const CracoLessPlugin = require('craco-less');
 const webpack = require('webpack');
 const path = require('path');
 const chalk = require('chalk');
 // const CracoLessPlugin = require('craco-less');
 const CracoAntDesignPlugin = require('craco-antd');
 const CracoVtkPlugin = require('craco-vtk');
-const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin'); // 查看打包的进度
+// const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin'); // 查看打包的进度
 const WebpackBar = require('webpackbar'); // 添加 进度条
 // Replace Moment.js with Day.js in antd project in ONE step. Bundle size reduced from 65 kb -> 4.19 kb.
 const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
@@ -35,7 +36,14 @@ const isBuildAnalyzer = process.env.BUILD_ANALYZER === 'true';
 const MODE = process.env.NODE_ENV;
 console.log(chalk.red('MODE', MODE));
 const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
-const { outputName, isGizp, isAnalyze, open, port, target } = require('./src/config/app.config.js').config;
+const {
+  outputName,
+  isGizp,
+  isAnalyze,
+  open,
+  port,
+  target
+} = require('./src/config/app.config.js').config;
 const pathResolve = (pathUrl) => path.join(__dirname, pathUrl);
 
 module.exports = {
@@ -46,9 +54,11 @@ module.exports = {
       '@assets': pathResolve('src/assets'),
       '@common': pathResolve('src/common'),
       '@components': pathResolve('src/components'),
+      '@config': pathResolve('src/config'),
       '@hooks': pathResolve('src/hooks'),
       '@pages': pathResolve('src/pages'),
       '@store': pathResolve('src/store'),
+      '@router': pathResolve('src/router'),
       '@utils': pathResolve('src/utils')
     },
     plugins: [
@@ -256,6 +266,20 @@ module.exports = {
       plugin: CracoAntDesignPlugin,
       options: {
         customizeThemeLessPath: path.join(__dirname, 'antd.customize.less')
+      }
+    },
+    // 支持less module
+    {
+      plugin: CracoLessPlugin,
+      options: {
+        cssLoaderOptions: {
+          modules: { localIdentName: '[local]_[hash:base64:5]' }
+        },
+        modifyLessRule: function (lessRule, _context) {
+          lessRule.test = /\.(module)\.(less)$/;
+          lessRule.exclude = path.join(__dirname, 'node_modules');
+          return lessRule;
+        }
       }
     }
   ],
