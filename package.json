@@ -87,5 +87,10 @@
   "lint-staged": {
     "src/**/*.{js,jsx,ts,.tsx,vue,html,md}": "npm run fix",
     "src/**/*.{css,less,scss}": "npm run stylelint"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-customizable"
+    }
   }
 }
