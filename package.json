@@ -27,8 +27,8 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.13.5",
-    "@commitlint/cli": "^12.0.1",
-    "@commitlint/config-conventional": "^12.0.1",
+    "@commitlint/cli": "^12.1.1",
+    "@commitlint/config-conventional": "^12.1.1",
     "@craco/craco": "^6.1.1",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
     "@typescript-eslint/parser": "^4.20.0",
@@ -46,7 +46,7 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.23.1",
     "filemanager-webpack-plugin": "^2.0.5",
-    "husky": "^5.2.0",
+    "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
     "pretty-quick": "^3.1.0",
@@ -79,19 +79,9 @@
       "react-app/jest"
     ]
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,.tsx,vue,html,md}": "npm run fix",
-    "src/**/*.{css,less,scss}": "npm run stylelint"
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-customizable"
-    }
+    "src/**/*.{js,jsx,ts,.tsx,vue,html,md}": "eslint --config .eslintrc.js",
+    "src/**/*.{css,less,scss}": "stylelint --config .stylelintrc.js",
+    "*.{ts,tsx,js,json,html,yml,css,less,md}": "prettier --write"
   }
 }
