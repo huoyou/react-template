@@ -23,7 +23,8 @@
     "eject": "react-scripts eject",
     "fix": "eslint --fix --ext .js,.jsx,.ts,.tsx,.vue,.html,.md src",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx,.vue,.html,.md src",
-    "stylelint": "stylelint --fix .css,.less,.scss src"
+    "stylelint": "stylelint --fix .css,.less,.scss src",
+    "log": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.13.5",
@@ -37,6 +38,7 @@
     "chalk": "^4.1.0",
     "circular-dependency-plugin": "^5.2.2",
     "compression-webpack-plugin": "^5.0.1",
+    "conventional-changelog-cli": "^2.1.1",
     "craco-antd": "^1.19.0",
     "craco-fast-refresh": "^1.0.5",
     "craco-less": "^1.17.1",
@@ -82,6 +84,6 @@
   "lint-staged": {
     "src/**/*.{js,jsx,ts,.tsx,vue,html,md}": "eslint --config .eslintrc.js",
     "src/**/*.{css,less,scss}": "stylelint --config .stylelintrc.js",
-    "*.{ts,tsx,js,json,html,yml,css,less,md}": "prettier --write"
+    "src/**/*.{ts,tsx,js,json,html,yml,css,less,md}": "prettier --write"
   }
 }
