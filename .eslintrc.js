@@ -40,14 +40,12 @@ module.exports = {
     'prettier',
     'plugin:prettier/recommended'
   ],
-  plugins: ['react'],
+  plugins: ['react', 'react-hooks'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 1 : 0,
     'no-debugger': process.env.NODE_ENV === 'production' ? 1 : 0,
     eqeqeq: 2, // 要求使用 === 和 !==
-    'vue/eqeqeq': 2, // 要求使用 === 和 !==
     'no-undef': 2, // 禁用未声明的变量
-    'vue/require-v-for-key': 1, // 当v-for写在自定义组件上时，它需要同时使用v-bind：key。在其他元素上，v-bind：key也最好写。
     'no-unused-vars': 1, // 禁止出现未使用过的变量
     'vars-on-top': 1, // 要求所有的 var 声明出现在它们所在的作用域顶部
     'prefer-destructuring': 0, // 优先使用数组和对象解构
@@ -65,7 +63,9 @@ module.exports = {
     'no-use-before-define': 1, // 禁止在变量定义之前使用它们
     '@typescript-eslint/explicit-module-boundary-types': 0,
     'react/react-in-jsx-scope': 0,
-    '@typescript-eslint/no-var-requires': 0
+    '@typescript-eslint/no-var-requires': 0,
+    'react-hooks/rules-of-hooks': 2, // 检查 Hook 的规则
+    'react-hooks/exhaustive-deps': 1 // 检查 effect 的依赖
   },
   overrides: [
     {
